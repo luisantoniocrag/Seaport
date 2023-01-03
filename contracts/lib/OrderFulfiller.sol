@@ -22,8 +22,6 @@ import { AmountDeriver } from "./AmountDeriver.sol";
 
 import "./ConsiderationConstants.sol";
 
-import { Context } from "../interfaces/Context.sol";
-
 
 /**
  * @title OrderFulfiller
@@ -35,8 +33,7 @@ import { Context } from "../interfaces/Context.sol";
 contract OrderFulfiller is
     BasicOrderFulfiller,
     CriteriaResolution,
-    AmountDeriver,
-    Context
+    AmountDeriver
 {
     /**
      * @dev Derive and set hashes, reference chainId, and associated domain
@@ -358,7 +355,7 @@ contract OrderFulfiller is
                 // Transfer item from caller to recipient specified by the item.
                 _transferConsiderationItem(
                     considerationItem,
-                    _msgSender(),
+                    msg.sender,
                     fulfillerConduitKey,
                     accumulator
                 );
@@ -371,7 +368,7 @@ contract OrderFulfiller is
         // If any ether remains after fulfillments...
         if (etherRemaining != 0) {
             // return it to the caller.
-            _transferEth(payable(_msgSender()), etherRemaining);
+            _transferEth(payable(msg.sender), etherRemaining);
         }
     }
 

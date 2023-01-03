@@ -20,6 +20,7 @@ import {
 
 import { OrderCombiner } from "./OrderCombiner.sol";
 
+import { Context } from "../interfaces/Context.sol";
 /**
  * @title Consideration
  * @author 0age
@@ -34,7 +35,7 @@ import { OrderCombiner } from "./OrderCombiner.sol";
  *         (the "offer") along with an arbitrary number of items that must be
  *         received back by the indicated recipients (the "consideration").
  */
-contract Consideration is ConsiderationInterface, OrderCombiner {
+contract Consideration is ConsiderationInterface, OrderCombiner, Context {
     /**
      * @notice Derive and set hashes, reference chainId, and associated domain
      *         separator during deployment.

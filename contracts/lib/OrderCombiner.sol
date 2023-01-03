@@ -704,7 +704,7 @@ contract OrderCombiner is OrderFulfiller, FulfillmentApplier {
 
         // If any ether remains after fulfillments, return it to the caller.
         if (etherRemaining != 0) {
-            _transferEth(payable(_msgSender()), etherRemaining);
+            _transferEth(payable(msg.sender), etherRemaining);
         }
 
         // Clear the reentrancy guard.
