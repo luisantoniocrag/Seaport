@@ -35,14 +35,14 @@ import { OrderCombiner } from "./OrderCombiner.sol";
  *         received back by the indicated recipients (the "consideration").
  */
 contract Consideration is ConsiderationInterface, OrderCombiner {
-    function _msgSender() internal view returns (address sender) {
+    function _msgSender() internal virtual view returns (address sender) {
         return msg.sender;
     }
 
-    function _msgData() internal view returns (bytes calldata) {
+    function _msgData() internal virtual view returns (bytes calldata) {
         return msg.data;
     }
-    
+
     /**
      * @notice Derive and set hashes, reference chainId, and associated domain
      *         separator during deployment.
