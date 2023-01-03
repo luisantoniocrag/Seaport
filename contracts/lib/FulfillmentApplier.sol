@@ -19,6 +19,8 @@ import {
     FulfillmentApplicationErrors
 } from "../interfaces/FulfillmentApplicationErrors.sol";
 
+import { Context } from "../interfaces/Context.sol";
+
 /**
  * @title FulfillmentApplier
  * @author 0age
@@ -27,7 +29,7 @@ import {
  *         consideration items) as well as fulfilling available orders (where
  *         order items and consideration items are independently aggregated).
  */
-contract FulfillmentApplier is FulfillmentApplicationErrors {
+contract FulfillmentApplier is FulfillmentApplicationErrors, Context{
     /**
      * @dev Internal pure function to match offer items to consideration items
      *      on a group of orders via a supplied fulfillment.
@@ -189,7 +191,7 @@ contract FulfillmentApplier is FulfillmentApplicationErrors {
                 );
 
                 // Set the caller as the offerer on the execution.
-                execution.offerer = msg.sender;
+                execution.offerer = _msgSender();
 
                 // Set fulfiller conduit key as the conduit key on execution.
                 execution.conduitKey = fulfillerConduitKey;
