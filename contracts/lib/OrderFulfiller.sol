@@ -35,6 +35,13 @@ contract OrderFulfiller is
     CriteriaResolution,
     AmountDeriver
 {
+     function _msgSender() internal virtual view returns (address sender) {
+        return msg.sender;
+    }
+
+    function _msgData() internal virtual view returns (bytes calldata) {
+        return msg.data;
+    }
     /**
      * @dev Derive and set hashes, reference chainId, and associated domain
      *      separator during deployment.
@@ -355,7 +362,7 @@ contract OrderFulfiller is
                 // Transfer item from caller to recipient specified by the item.
                 _transferConsiderationItem(
                     considerationItem,
-                    msg.sender,
+                    _msgSender(),
                     fulfillerConduitKey,
                     accumulator
                 );
@@ -368,7 +375,7 @@ contract OrderFulfiller is
         // If any ether remains after fulfillments...
         if (etherRemaining != 0) {
             // return it to the caller.
-            _transferEth(payable(msg.sender), etherRemaining);
+            _transferEth(payable(_msgSender()), etherRemaining);
         }
     }
 
